@@ -15,6 +15,25 @@ type caixa struct{
 
 }
 
+type RotationType int
+
+type Axis int
+
+type pivo [3]float64
+
+type Dimension [3]float64
+
+type item struct{
+	largura float64
+	altura float64
+	profundidade float64
+
+	// usado durante packer.Pack()
+	RotationType RotationType
+	Position pivo
+}
+
+
 
 // funcao que cria uma nova caixa com os parâmetros passados
 func NovaCaixa(largura, altura, profundidade float64) *caixa {
@@ -27,7 +46,6 @@ func NovaCaixa(largura, altura, profundidade float64) *caixa {
 		}
 
 }
-
 
 // Gets
 func (l *caixa) GetLargura() float64{
@@ -45,4 +63,26 @@ func (p *caixa) GetProfundidade() float64{
 func (x *caixa) GetVolume() float64{
 	return x.altura * x.largura * x.profundidade
 }
+
+
+// a funcao PutItem tenta pôr o item no pivo p da caixa c
+func (c *caixa) PutItem(item *item, p pivo) (fit bool){
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
