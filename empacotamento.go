@@ -22,7 +22,7 @@ func NovaCaixa(largura, altura, profundidade float64) *caixa {
 			largura: largura,
 			altura: altura,
 			profundidade: profundidade,
-			items: make([]*item, 0),    
+			items: make([]*item, 0),  // inicializa uma slice com o tipo item de comprimento zero  
 
 		}
 
