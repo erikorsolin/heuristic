@@ -63,26 +63,3 @@ func (p *caixa) GetProfundidade() float64{
 func (x *caixa) GetVolume() float64{
 	return x.altura * x.largura * x.profundidade
 }
-
-
-// a funcao PutItem tenta pôr o item no pivo p da caixa c
-func (c *caixa) PutItem(item *item, p pivo) (fit bool){
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
