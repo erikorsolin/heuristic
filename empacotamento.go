@@ -100,13 +100,23 @@ func(i *item) GetVolume() float64{
 func (c *caixa) ColocarItem(i *item, p pivo) (colocado bool){
 	i.Position = p
 	if c.largura < p[0]+i.largura || c.altura <  p[1]+i.altura || c.profundidade < p[2]+i.profundidade {
+		return
 		
 	}
 	colocado = true
 
+	for _, ib := range c.items {    // verifica se os itens já empacotados não interceptam o novo item
+		if ib.intersect(i) {
+			colocado = false
+			break
+		}
+	}
 
+	if colocado {
+		c.items  = append(c.items, i)
+	}
 
-	
+	return
 
 }
 
