@@ -7,18 +7,23 @@ import (
 	"math/rand"
 )
 
-// onde os itens serão colocados 
 type caixa struct{
 	largura float64
 	altura float64
 	profundidade float64
-	items []*item // items que foram empacotados 
+	items []*item 
 
 }
 
 type RotationType int
 
 type Axis int
+
+const (
+	WidthAxis Axis = iota
+	HeightAxis
+	DepthAxis
+)
 
 type pivo [3]float64
 
@@ -39,6 +44,7 @@ type item struct{
 	RotationType RotationType
 	Position pivo
 }
+
 
 
 
@@ -97,6 +103,8 @@ func(i *item) GetVolume() float64{
 }
 
 
+
+// tenta colocar o item i no pivo p da caixa c
 func (c *caixa) ColocarItem(i *item, p pivo) (colocado bool){
 	i.Position = p
 	if c.largura < p[0]+i.largura || c.altura <  p[1]+i.altura || c.profundidade < p[2]+i.profundidade {
@@ -117,6 +125,19 @@ func (c *caixa) ColocarItem(i *item, p pivo) (colocado bool){
 	}
 
 	return
-
 }
+
+
+
+// intersect verifica se há uma intersecção entre o item i passado como parâmetro e outro item atual da iteração 
+
+func (i *item) intersect(i2 *item) bool{
+	return rectIntersect(i, i2, WidthAxis, HeightAxis) &&
+		   rectIntersect(i, i2, HeightAxis, DepthAxis) &&
+		   rectIntersect(i, i2, WidthAxis, DepthAxis)
+}
+
+
+
+
 
