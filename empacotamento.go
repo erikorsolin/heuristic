@@ -142,10 +142,16 @@ func rectIntersect(i1, i2 *item, x, y Axis) bool{
 	d1 := i1.GetDimension()
 	d2 := i2.GetDimension()	
 
-	cx1 := i1.Position[x] + d1[x]
-	cy1 := i1.Position[y] + d1[y]
-	cx2 := i2.Position[x] + d2[x]
-	cy2 := i2.Position[y] + d2[y]
+	cx1 := i1.Position[x] + d1[x]/2   
+	cy1 := i1.Position[y] + d1[y]/2
+	cx2 := i2.Position[x] + d2[x]/2
+	cy2 := i2.Position[y] + d2[y]/2
 
+	ix := math.Max(cx1, cx2) - math.Min(cx1, cx2)
+	iy := math.Max(cy1, cy2) - math.Min(cy1, cy2)
+
+	return ix < (d1[x]+d2[x])/2 && iy < (d1[y]+d2[y])/2
 
 }
+
+
