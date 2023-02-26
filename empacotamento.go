@@ -32,6 +32,10 @@ var posicao_inicial = pivo{0, 0, 0}
 
 type Dimension [3]float64
 
+func (i *item) GetDimension() (d Dimension) {
+	d = Dimension{i.GetLargura(), i.GetAltura(), i.GetProfundidade()}
+	return
+}
 
 
 type item struct{
@@ -39,9 +43,6 @@ type item struct{
 	largura float64
 	altura float64
 	profundidade float64
-
-	// usado durante packer.Pack()
-	RotationType RotationType
 	Position pivo
 }
 
@@ -129,7 +130,7 @@ func (c *caixa) ColocarItem(i *item, p pivo) (colocado bool){
 
 
 
-// intersect verifica se há uma intersecção entre o item i passado como parâmetro e outro item atual da iteração 
+// intersect verifica se há uma intersecção em cada 2 eixos
 
 func (i *item) intersect(i2 *item) bool{
 	return rectIntersect(i, i2, WidthAxis, HeightAxis) &&
@@ -137,7 +138,14 @@ func (i *item) intersect(i2 *item) bool{
 		   rectIntersect(i, i2, WidthAxis, DepthAxis)
 }
 
+func rectIntersect(i1, i2 *item, x, y Axis) bool{
+	d1 := i1.GetDimension()
+	d2 := i2.GetDimension()	
+
+	cx1 := i1.Position[x] + d1[x]
+	cy1 := i1.Position[y] + d1[y]
+	cx2 := i2.Position[x] + d2[x]
+	cy2 := i2.Position[y] + d2[y]
 
 
-
-
+}
