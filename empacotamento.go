@@ -8,6 +8,7 @@ import (
 )
 
 type caixa struct{
+	nome string
 	largura float64
 	altura float64
 	profundidade float64
@@ -15,12 +16,13 @@ type caixa struct{
 
 }
 
-type RotationType int
+type CaixasLista []*caixa
+type Items []*item
 
-type Axis int
+type eixo int
 
 const (
-	WidthAxis Axis = iota
+	WidthAxis eixo = iota
 	HeightAxis
 	DepthAxis
 )
@@ -39,7 +41,7 @@ func (i *item) GetDimension() (d Dimension) {
 
 
 type item struct{
-	name string
+	nome string
 	largura float64
 	altura float64
 	profundidade float64
@@ -50,8 +52,9 @@ type item struct{
 
 
 // funcao que cria uma nova caixa com os parâmetros passados
-func NovaCaixa(largura, altura, profundidade float64) *caixa {
+func NovaCaixa(nome string, largura, altura, profundidade float64) *caixa {
 		return &caixa{  		// o operador & serve para retornar o endereço de memória dessa variável
+			nome: nome,
 			largura: largura,
 			altura: altura,
 			profundidade: profundidade,
@@ -81,10 +84,21 @@ func (x *caixa) GetVolume() float64{
 
 
 
+
+
+func NovoItem(nome string, altura, largura, profundidade float64) *item{
+	return &item{
+		nome: nome,
+		altura: altura,
+		largura: largura,
+		profundidade: profundidade,
+	}
+}
+
 // Gets do Item
 
 func (i *item) GetName() string{
-	return i.name
+	return i.nome
 }
 
 func (i *item) GetLargura() float64{
@@ -102,6 +116,7 @@ func (i *item) GetProfundidade() float64{
 func(i *item) GetVolume() float64{
 	return i.altura * i.largura * i.profundidade
 }
+
 
 
 
@@ -129,7 +144,6 @@ func (c *caixa) ColocarItem(i *item, p pivo) (colocado bool){
 }
 
 
-
 // intersect verifica se há uma intersecção em cada 2 eixos
 
 func (i *item) intersect(i2 *item) bool{
@@ -138,7 +152,7 @@ func (i *item) intersect(i2 *item) bool{
 		   rectIntersect(i, i2, WidthAxis, DepthAxis)
 }
 
-func rectIntersect(i1, i2 *item, x, y Axis) bool{
+func rectIntersect(i1, i2 *item, x, y eixo) bool{
 	d1 := i1.GetDimension()
 	d2 := i2.GetDimension()	
 
