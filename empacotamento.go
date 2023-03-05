@@ -39,7 +39,6 @@ func (i *item) GetDimension() (d Dimension) {
 	return
 }
 
-
 type item struct{
 	nome string
 	largura float64
@@ -48,7 +47,11 @@ type item struct{
 	Position pivo
 }
 
-
+type empacotador struct {
+	conteiner caixa
+	items []*item
+	UnfitItemns []*item
+}
 
 
 // funcao que cria uma nova caixa com os parâmetros passados
@@ -84,8 +87,6 @@ func (x *caixa) GetVolume() float64{
 
 
 
-
-
 func NovoItem(nome string, altura, largura, profundidade float64) *item{
 	return &item{
 		nome: nome,
@@ -116,7 +117,6 @@ func (i *item) GetProfundidade() float64{
 func(i *item) GetVolume() float64{
 	return i.altura * i.largura * i.profundidade
 }
-
 
 
 
@@ -167,5 +167,4 @@ func rectIntersect(i1, i2 *item, x, y eixo) bool{
 	return ix < (d1[x]+d2[x])/2 && iy < (d1[y]+d2[y])/2
 
 }
-
 
