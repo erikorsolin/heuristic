@@ -48,7 +48,7 @@ type item struct{
 }
 
 type empacotador struct {
-	conteiner caixa
+	conteineres []*caixa
 	items []*item
 	UnfitItemns []*item
 }
@@ -166,5 +166,23 @@ func rectIntersect(i1, i2 *item, x, y eixo) bool{
 
 	return ix < (d1[x]+d2[x])/2 && iy < (d1[y]+d2[y])/2
 
+}
+
+// função que cria um novo empacotador
+func NovoEmpacotador() *empacotador{
+	return &empacotador{
+		conteineres: make([]*caixa, 0),
+		items: make([]*item, 0),
+		UnfitItemns: make([]*item, 0),
+	}
+}
+
+
+func(e *empacotador) AddConteiner(conteineres ...*caixa){
+	e.conteineres = append(e.conteineres, conteineres...)
+}
+
+func(e *empacotador) AddItem(items ...*item){
+	e.items = append(e.items, items...)
 }
 
